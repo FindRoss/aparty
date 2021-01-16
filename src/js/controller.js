@@ -9,6 +9,7 @@ const controlApartmentListing = async function () {
     const query = searchView.getQuery();
     if (!query) return;
 
+    console.log('at least this is working... until here anyway');
     cardsView.renderSpinner();
 
     await model.getApartListings(query);
