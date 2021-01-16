@@ -27,7 +27,7 @@ class mapView {
     console.log(d);
     let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
     let popupContent = `<span>${d.price}</span>`;
-    let popup = new L.Popup({ closeButton: false, closeOnClick: false });
+    let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' });
 
     popup.setLatLng(popupLocation);
     popup.setContent(popupContent);

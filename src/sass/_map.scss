@@ -14,7 +14,6 @@
   #mapid {
     width: 34vw;
     height: calc(100vh - 60px * 2);
-    outline: none;
     overflow: hidden;
   }
 }
@@ -26,8 +25,11 @@
   }
 }
 
-.leaflet-popup-content {
-  text-align: center;
+.custom-popup {
+  background: $color-primary-100;
+  .leaflet-popup-content {
+    text-align: center;
+  }
 }
 
 .leaflet-popup {

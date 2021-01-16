@@ -1,7 +1,11 @@
-$color-primary-100: #8a9bf2;
-$color-primary-200: #7c8bd9;
-$color-primary-300: #6b78bc;
-$color-primary-400: #5d68a3;
+// $color-primary-100: #8a9bf2;
+// $color-primary-200: #7c8bd9;
+// $color-primary-300: #6b78bc;
+// $color-primary-400: #5d68a3;
+$color-primary-100: red;
+$color-primary-200: red;
+$color-primary-300: red;
+$color-primary-400: red;
 
 $color-secondary-100: #fffbf2;
 $color-secondary-200: #fff9eb;
@@ -30,12 +34,6 @@ body {
   color: #121212;
   background: $color-secondary-100;
   min-height: calc(100vh - 2 * 4vw);
-}
-
-html {
-  // @media screen and (max-width: $bp-medium) {
-  //   font-size: 75%;
-  // }
 }
 
 .container {
