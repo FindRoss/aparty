@@ -1,3 +1,58 @@
+class mapView {
+  // _map;
+  _data;
+
+  _mapMarkersLocation = [[56.075308, -3.441906], [56.0699, -3.4636]];
+
+  constructor() {
+    this.mapLocation = [56.0699, -3.4636];
+    this.mapZoomLevel = 10;
+  }
+
+  loadMap() {
+    this.map = L.map('mapid').setView(this.mapLocation, this.mapZoomLevel);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+      attribution:
+        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    }).addTo(this.map);
+  }
+
+  render(data) {
+    this.data = data;
+    return this.data.map(this.generateMapPopup.bind(this));
+  }
+
+  generateMapPopup(d) {
+    console.log(d);
+    let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
+    let popupContent = `<span>${d.price}</span>`;
+    let popup = new L.Popup({ closeButton: false, closeOnClick: false });
+
+    popup.setLatLng(popupLocation);
+    popup.setContent(popupContent);
+
+    return this.map.addLayer(popup)
+  }
+
+}
+
+export default new mapView;
+
+
+
+
+  // _abbey = [56.0699, -3.4636];
+  // _loadMarkers() {
+  //   L.marker(this._abbey, { opacity: 0 })
+  //     .addTo(this._map)
+  // }
+
+
+
+
+
+
 // const dunfermline = [56.07192, -3.4393];
 
 // 1) User story:
@@ -18,53 +73,3 @@
 // Dunfermline Abbey = [56.0699, -3.4636]; 
 // East End Park = [56.075308, -3.441906];
 
-
-
-class mapView {
-  _map;
-  _data;
-  _mapLocation = [56.0699, -3.4636];
-  _mapZoomLevel = 10;
-  _mapMarkersLocation = [[56.075308, -3.441906], [56.0699, -3.4636]];
-  _abbey = [56.0699, -3.4636];
-
-  constructor() {
-    // this should be in the controller.
-    this._loadMap();
-  }
-
-  _loadMap() {
-    this._map = L.map('mapid').setView(this._mapLocation, this._mapZoomLevel);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution:
-        '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    }).addTo(this._map);
-  }
-
-  render(data) {
-    this._data = data;
-    return this._data.map(this._generateMapPopup.bind(this));
-  }
-
-  _generateMapPopup(d) {
-    let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
-    let popupContent = `<span>foo</span>`;
-    let popup = new L.Popup({ closeButton: false, closeOnClick: false });
-
-    popup.setLatLng(popupLocation);
-    popup.setContent(popupContent);
-
-    return this._map.addLayer(popup)
-  }
-
-}
-
-export default new mapView;
-
-
-
-  // _loadMarkers() {
-  //   L.marker(this._abbey, { opacity: 0 })
-  //     .addTo(this._map)
-  // }

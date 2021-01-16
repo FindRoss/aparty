@@ -4,7 +4,6 @@ import cardsView from './view/cardsView';
 import * as model from './model';
 
 
-
 const controlApartmentListing = async function () {
   try {
     const query = searchView.getQuery();
@@ -16,16 +15,13 @@ const controlApartmentListing = async function () {
 
     mapView.render(model.state.listings);
     cardsView.render(model.state.listings);
-
   } catch (error) {
     console.log('controlApartmentListing error', error);
   }
-
 }
 
 const init = function () {
   searchView.addHandlerSearch(controlApartmentListing);
+  mapView.loadMap();
 }
 init();
-
-// console.log(12324);

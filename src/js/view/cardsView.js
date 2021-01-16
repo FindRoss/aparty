@@ -1,13 +1,16 @@
 import View from './view.js';
 
 class CardsView extends View {
-  _parentElement = document.querySelector('.cards');
-
-  _generateMarkup() {
-    return this._data.map(this._generateCardMarkup).join('');
+  constructor() {
+    super()
+    this.parentElement = document.querySelector('.cards');
   }
 
-  _generateCardMarkup(d) {
+  generateMarkup() {
+    return this.data.map(this.generateCardMarkup).join('');
+  }
+
+  generateCardMarkup(d) {
     return ` 
       <div div class="card">
         <div class="card--image" style="background-image: url(${d.image})">

@@ -25,3 +25,15 @@
     visibility: none;
   }
 }
+
+.leaflet-popup-content {
+  text-align: center;
+}
+
+.leaflet-popup {
+  .leaflet-popup-tip-container {
+    .leaflet-popup-tip {
+      background: $color-primary-100;
+    }
+  }
+}

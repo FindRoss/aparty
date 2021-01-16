@@ -1,17 +1,16 @@
 export default class View {
-  _data;
 
   render(data) {
     if (!data || data.length === 0) return;
 
-    this._data = data;
-    const markup = this._generateMarkup();
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this.data = data;
+    const markup = this.generateMarkup();
+    this.clear();
+    this.parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
-  _clear() {
-    this._parentElement.innerHTML = '';
+  clear() {
+    this.parentElement.innerHTML = '';
   }
 
   renderSpinner() {
@@ -23,8 +22,8 @@ export default class View {
       </div>
     `;
 
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
+    this.clear();
+    this.parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 };
 
