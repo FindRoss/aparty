@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      defer
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700"
+      rel="stylesheet"
+    />
+    <script
+      defer
+      src="https://kit.fontawesome.com/dd073971bd.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script defer src="src/js/mapView.js"></script> -->
+    <script defer src="src/js/controller.js"></script>
+    <link rel="stylesheet" href="src/sass/main.scss" />
+    <title>
+      Apparments || Search 1000s of appartments and find the place for you.
+    </title>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="header--flex">
+          <div class="logo--wrapper">
+            <img class="logo" src="src/img/aparty-logo.png" alt="aparty app" />
+            <h1>Aparty</h1>
+          </div>
+          <nav>
+            <ul class="nav--list">
+              <li class="nav--list-item">
+                <i class="fas fa-bookmark"></i>
+                <span>Bookmarks</span>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+    <section class="filters--section">
+      <div class="container">
+        <div class="filters">
+          <form class="search">
+            <input
+              type="text"
+              class="search__field"
+              placeholder="Dunfermline, Rosyth, ect..."
+            />
+            <button>Search</button>
+          </form>
+        </div>
+      </div>
+    </section>
+    <main>
+      <div class="container">
+        <div class="main--layout">
+          <section class="cards--section">
+            <div class="cards--section__layout cards">
+              <!-- temporary message to search -->
+              <div class="intro card__layout--middle">
+                <div class="intro__msg">
+                  <i class="far fa-smile"></i>
+                  <div class="intro__msg--content">
+                    <div class="intro__msg--content--title">
+                      Welcome to Aparty
+                    </div>
+                    <div class="intro__msg--content--body">
+                      Begin by searching for a property somewhere in Scotland
+                      you would like to live.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .intro -->
+            </div>
+            <!-- card--layout -->
+          </section>
+          <section class="map">
+            <div class="map--fixed">
+              <div class="map--fixed__wrapper">
+                <div id="mapid"></div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+.map {
+  overflow: hidden;
+
+  &--fixed {
+    position: fixed;
+
+    &__wrapper {
+      height: 100%;
+      width: 100%;
+      position: relative;
+    }
+  }
+
+  #mapid {
+    width: 34vw;
+    height: calc(100vh - 60px * 2);
+    outline: none;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: $bp-medium) {
+  .map {
+    display: none;
+    visibility: none;
+  }
+}

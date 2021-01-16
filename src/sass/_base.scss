@@ -1,0 +1,82 @@
+$color-primary-100: #8a9bf2;
+$color-primary-200: #7c8bd9;
+$color-primary-300: #6b78bc;
+$color-primary-400: #5d68a3;
+
+$color-secondary-100: #fffbf2;
+$color-secondary-200: #fff9eb;
+$color-secondary-300: #ffefca;
+
+$box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$box-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+$box-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+
+$bp-large: 1250px;
+$bp-medium: 980px;
+$bp-small: 600px;
+
+$container-padding: 0 1rem;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1;
+  color: #121212;
+  background: $color-secondary-100;
+  min-height: calc(100vh - 2 * 4vw);
+}
+
+html {
+  // @media screen and (max-width: $bp-medium) {
+  //   font-size: 75%;
+  // }
+}
+
+.container {
+  max-width: $bp-large;
+  padding: $container-padding;
+  margin: 0 auto;
+}
+
+.main--layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding-top: 120px;
+}
+
+@media screen and (max-width: $bp-medium) {
+  .main--layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 2.75rem;
+}
+
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
