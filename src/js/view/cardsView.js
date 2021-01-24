@@ -4,6 +4,7 @@ class CardsView extends View {
   constructor() {
     super()
     this.parentElement = document.querySelector('.cards');
+    this.errorMessage = 'No apartments returned'
   }
 
   generateMarkup() {

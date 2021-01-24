@@ -1,7 +1,7 @@
 export default class View {
 
   render(data) {
-    if (!data || data.length === 0) return;
+    if (!data || data.length === 0) this.renderError().bind(this);
 
     this.data = data;
     const markup = this.generateMarkup();
@@ -11,6 +11,18 @@ export default class View {
 
   clear() {
     this.parentElement.innerHTML = '';
+  }
+
+  renderError() {
+    console.log('sorry error!');
+    const markup = `
+      <div class="">
+        <h3>${this.errorMessage}</h3>
+      </div>
+    `;
+
+    this.clear();
+    this.parentElement.insertAdjacentHTML('afterbegin', markup);
   }
 
   renderSpinner() {

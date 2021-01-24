@@ -26,9 +26,14 @@
 }
 
 .custom-popup {
-  background: $color-primary-100;
-  .leaflet-popup-content {
-    text-align: center;
+  .leaflet-popup-content-wrapper {
+    background: $color-primary-100;
+    .leaflet-popup-content {
+      text-align: center;
+      color: #fff;
+      font-size: 0.75rem;
+      margin: 8px;
+    }
   }
 }
 

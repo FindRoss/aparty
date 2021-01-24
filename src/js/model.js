@@ -1,4 +1,5 @@
 import { async } from 'regenerator-runtime';
+import { API_KEY, API_URL } from './config';
 
 export const state = {
   listings: [],
@@ -23,6 +24,9 @@ export const getApartListings = async function (query = 'Dunfermline') {
 
     const xmlDocListings = xmlDoc.getElementsByTagName('listing');
     const xmlDocListingsArr = Array.from(xmlDocListings);
+
+    // Clean listings from state.
+    state.listings = [];
 
     xmlDocListingsArr.map(listing => state.listings.push(generateListingObj(listing)));
 

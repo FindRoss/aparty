@@ -1,12 +1,7 @@
 class mapView {
-  // _map;
-  _data;
-
-  _mapMarkersLocation = [[56.075308, -3.441906], [56.0699, -3.4636]];
-
   constructor() {
-    this.mapLocation = [56.0699, -3.4636];
-    this.mapZoomLevel = 10;
+    this.mapLocation = [56.075308, -3.441906];
+    this.mapZoomLevel = 20;
   }
 
   loadMap() {
@@ -20,11 +15,38 @@ class mapView {
 
   render(data) {
     this.data = data;
-    return this.data.map(this.generateMapPopup.bind(this));
+
+    // remove the popups from the map
+    this._clearPopups();
+
+    this.layerGroupArr = this.data.map(this.generateMapPopup.bind(this));
+
+    this.calculateBounds();
+
+    this.popupLayer = L.layerGroup(this.layerGroupArr);
+
+    this.popupLayer.addTo(this.map);
+
+    // this.map.fitBounds([
+    //   [55.948611, -3.200833],
+    //   [55.96361, -3.17848]
+    // ])
+
+  }
+
+  calculateBounds() {
+    console.log(this.data);
+
+  }
+
+  _clearPopups() {
+    if (this.popupLayer) {
+      this.map.removeLayer(this.popupLayer);
+      console.log(this.map);
+    }
   }
 
   generateMapPopup(d) {
-    console.log(d);
     let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
     let popupContent = `<span>${d.price}</span>`;
     let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' });
@@ -32,12 +54,26 @@ class mapView {
     popup.setLatLng(popupLocation);
     popup.setContent(popupContent);
 
-    return this.map.addLayer(popup)
+    return popup;
   }
-
 }
 
 export default new mapView;
+
+
+// Leith Walk: 55.96361, -3.17848
+// Edinburgh Castle: 55.948611, -3.200833
+// East end park: 56.075308, -3.441906
+
+// map.fitBounds([
+//  Top right
+//  [latitude, longitude] 
+//  [small, big]
+//  [55.948611, -3.200833]
+//  bottom left
+//  [big, small]
+//  [55.96361, -3.17848]
+// ]);
 
 
 
