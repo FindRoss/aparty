@@ -1,7 +1,7 @@
 class mapView {
   constructor() {
     this.mapLocation = [56.075308, -3.441906];
-    this.mapZoomLevel = 20;
+    this.mapZoomLevel = 8;
   }
 
   loadMap() {
@@ -16,33 +16,43 @@ class mapView {
   render(data) {
     this.data = data;
 
-    // remove the popups from the map
     this._clearPopups();
 
     this.layerGroupArr = this.data.map(this.generateMapPopup.bind(this));
-
-    this.calculateBounds();
 
     this.popupLayer = L.layerGroup(this.layerGroupArr);
 
     this.popupLayer.addTo(this.map);
 
-    // this.map.fitBounds([
-    //   [55.948611, -3.200833],
-    //   [55.96361, -3.17848]
-    // ])
+    this.map.fitBounds(this.calculateBounds())
 
+    this.addPopupHandler();
   }
 
   calculateBounds() {
-    console.log(this.data);
+    // I need to north-west and south-east extremes.
+    const latArr = [...this.data];
+    const lngArr = [...this.data];
 
+    // sort can arrange the lats and lngs
+    const latSort = latArr.sort((a, b) => a.latitude - b.latitude);
+    const lngSort = lngArr.sort((a, b) => a.longitude - b.longitude);
+
+    const north = latSort[latSort.length - 1].latitude;
+    const south = latSort[0].latitude;
+
+    const east = lngSort[lngSort.length - 1].longitude;
+    const west = lngSort[0].longitude;
+
+    return [
+      [north, west],
+      [south, east]
+    ]
   }
 
   _clearPopups() {
     if (this.popupLayer) {
       this.map.removeLayer(this.popupLayer);
-      console.log(this.map);
     }
   }
 
@@ -56,40 +66,35 @@ class mapView {
 
     return popup;
   }
+
+  addPopupHandler() {
+    L.popupHandler = L.Handler.extend({
+      addHooks: function () {
+        L.DomEvent.on(window, 'mouseover', this._tilt, this);
+      },
+
+      removeHooks: function () {
+        L.DomEvent.off(window, 'mouseover', this._tilt, this);
+      },
+
+      _tilt: function () {
+
+        console.log('mouseover event...');
+      }
+    });
+
+    L.Map.addInitHook('addHandler', 'mousepop', L.popupHandler);
+
+    console.log(L.Map);
+  }
+
 }
 
 export default new mapView;
 
 
-// Leith Walk: 55.96361, -3.17848
-// Edinburgh Castle: 55.948611, -3.200833
-// East end park: 56.075308, -3.441906
-
-// map.fitBounds([
-//  Top right
-//  [latitude, longitude] 
-//  [small, big]
-//  [55.948611, -3.200833]
-//  bottom left
-//  [big, small]
-//  [55.96361, -3.17848]
-// ]);
 
 
-
-
-  // _abbey = [56.0699, -3.4636];
-  // _loadMarkers() {
-  //   L.marker(this._abbey, { opacity: 0 })
-  //     .addTo(this._map)
-  // }
-
-
-
-
-
-
-// const dunfermline = [56.07192, -3.4393];
 
 // 1) User story:
 // Display aparments as cards and their position on the map. 
