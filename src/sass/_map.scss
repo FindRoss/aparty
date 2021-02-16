@@ -26,8 +26,15 @@
 }
 
 .custom-popup {
+  cursor: pointer;
+
+  &:hover {
+    z-index: 1000;
+  }
+
   .leaflet-popup-content-wrapper {
     background: $color-primary-100;
+
     .leaflet-popup-content {
       text-align: center;
       color: #fff;

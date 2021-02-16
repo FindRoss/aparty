@@ -16,17 +16,42 @@ class mapView {
   render(data) {
     this.data = data;
 
-    this._clearPopups();
+    this.clearPopups();
 
     this.layerGroupArr = this.data.map(this.generateMapPopup.bind(this));
 
-    this.popupLayer = L.layerGroup(this.layerGroupArr);
+    this.popupLayer = L.featureGroup(this.layerGroupArr);
 
     this.popupLayer.addTo(this.map);
 
-    this.map.fitBounds(this.calculateBounds())
+    this.map.fitBounds(this.calculateBounds());
+  }
 
-    this.addPopupHandler();
+  generateMapPopup(d) {
+    console.log(d);
+    let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
+
+    let popupContent = L.DomUtil.create('span', 'popup__span');
+
+    popupContent.innerHTML = d.price;
+
+    let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' })
+
+    popup.setLatLng(popupLocation);
+    popup.setContent(popupContent);
+
+    L.DomEvent.addListener(popupContent, 'click', () => {
+
+    });
+
+
+    return popup;
+  }
+
+  clearPopups() {
+    if (this.popupLayer) {
+      this.map.removeLayer(this.popupLayer);
+    }
   }
 
   calculateBounds() {
@@ -48,44 +73,6 @@ class mapView {
       [north, west],
       [south, east]
     ]
-  }
-
-  _clearPopups() {
-    if (this.popupLayer) {
-      this.map.removeLayer(this.popupLayer);
-    }
-  }
-
-  generateMapPopup(d) {
-    let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
-    let popupContent = `<span>${d.price}</span>`;
-    let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' });
-
-    popup.setLatLng(popupLocation);
-    popup.setContent(popupContent);
-
-    return popup;
-  }
-
-  addPopupHandler() {
-    L.popupHandler = L.Handler.extend({
-      addHooks: function () {
-        L.DomEvent.on(window, 'mouseover', this._tilt, this);
-      },
-
-      removeHooks: function () {
-        L.DomEvent.off(window, 'mouseover', this._tilt, this);
-      },
-
-      _tilt: function () {
-
-        console.log('mouseover event...');
-      }
-    });
-
-    L.Map.addInitHook('addHandler', 'mousepop', L.popupHandler);
-
-    console.log(L.Map);
   }
 
 }
