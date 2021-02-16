@@ -15,6 +15,7 @@ const controlApartmentListing = async function () {
 
     cardsView.render(model.state.listings);
     mapView.render(model.state.listings);
+
   } catch (error) {
     console.log('controlApartmentListing error', error);
   }

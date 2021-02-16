@@ -28,7 +28,7 @@ export const getApartListings = async function (query = 'Dunfermline') {
     // Clean listings from state.
     state.listings = [];
 
-    xmlDocListingsArr.map(listing => state.listings.push(generateListingObj(listing)));
+    xmlDocListingsArr.map((listing, index) => state.listings.push(generateListingObj(listing, index)));
 
   } catch (error) {
     console.log(`In the catch block of the model. `, error);
