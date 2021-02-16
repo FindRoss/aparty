@@ -34,6 +34,8 @@ class mapView {
     let popupContent = L.DomUtil.create('span', 'popup__span');
 
     popupContent.innerHTML = d.price;
+    // not perfect because I have to bubble around to get this value. 
+    popupContent.dataset.id = d.id;
 
     let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' })
 
@@ -43,7 +45,6 @@ class mapView {
     L.DomEvent.addListener(popupContent, 'click', () => {
 
     });
-
 
     return popup;
   }

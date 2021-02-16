@@ -1,5 +1,6 @@
 import { async } from 'regenerator-runtime';
 import { API_KEY, API_URL } from './config';
+import { v4 as uuidv4 } from 'uuid';
 
 export const state = {
   listings: [],
@@ -36,12 +37,14 @@ export const getApartListings = async function (query = 'Dunfermline') {
 }
 
 const generateListingObj = function (listing) {
+
   return {
     address: listing.getElementsByTagName('displayable_address')[0].innerHTML,
     latitude: +listing.getElementsByTagName('latitude')[0].innerHTML,
     longitude: +listing.getElementsByTagName('longitude')[0].innerHTML,
     image: listing.getElementsByTagName('image_645_430_url')[0].innerHTML,
     bedrooms: +listing.getElementsByTagName('num_bedrooms')[0].innerHTML,
-    price: +listing.getElementsByTagName('price')[0].innerHTML
+    price: +listing.getElementsByTagName('price')[0].innerHTML,
+    id: uuidv4()
   }
 }

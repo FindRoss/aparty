@@ -13,7 +13,7 @@ class CardsView extends View {
 
   generateCardMarkup(d) {
     return ` 
-      <div div class="card">
+      <div div class="card" data-id=${d.id}>
         <div class="card--image" style="background-image: url(${d.image})">
         </div>
         <div class="card--body">
