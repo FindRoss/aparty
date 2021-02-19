@@ -37,8 +37,14 @@
       <div class="container">
         <div class="header--flex">
           <div class="logo--wrapper">
-            <img class="logo" src="src/img/aparty-logo.png" alt="aparty app" />
-            <h1>Aparty</h1>
+            <a href="http://localhost:1234/">
+              <img
+                class="logo"
+                src="src/img/aparty-logo.png"
+                alt="aparty app"
+              />
+              <h1>Aparty</h1>
+            </a>
           </div>
           <nav>
             <ul class="nav--list">
@@ -70,22 +76,24 @@
         <div class="main--layout">
           <section class="cards--section">
             <div class="cards--section__layout cards">
-              <!-- temporary message to search -->
-              <div class="intro card__layout--middle">
-                <div class="intro__msg">
-                  <i class="far fa-smile"></i>
-                  <div class="intro__msg--content">
-                    <div class="intro__msg--content--title">
-                      Welcome to Aparty
-                    </div>
-                    <div class="intro__msg--content--body">
-                      Begin by searching for a property somewhere in Scotland
-                      you would like to live.
-                    </div>
-                  </div>
+              <!-- Intro message -->
+              <div class="message intro">
+                <i class="far fa-smile"></i>
+                <div class="message__content">
+                  Get started by searching for a property somewhere in Scotland.
                 </div>
               </div>
               <!-- .intro -->
+              <div class="placecard" data-location="rosyth">
+                <span>Rosyth</span>
+              </div>
+              <div class="placecard" data-location="dunfermline">
+                <span>Dunfermline</span>
+              </div>
+              <div class="placecard" data-location="edinburgh">
+                <span>Edinburgh</span>
+              </div>
+              <!-- placecard -->
             </div>
             <!-- card--layout -->
           </section>

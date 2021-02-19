@@ -16,9 +16,12 @@ $box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 $box-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 $box-shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
+// using breakpoint in _map.scss
 $bp-large: 1250px;
 $bp-medium: 980px;
 $bp-small: 600px;
+
+$border-radius: 1rem;
 
 $container-padding: 0 1rem;
 

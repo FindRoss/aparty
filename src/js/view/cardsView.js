@@ -1,10 +1,16 @@
 import View from './view.js';
 
+
 class CardsView extends View {
   constructor() {
     super()
     this.parentElement = document.querySelector('.cards');
-    this.errorMessage = 'No apartments returned'
+    this.errorMessage = 'No apartments found';
+  }
+
+  highlightCard(id) {
+    let [card] = this.data.filter(d => d.id === id);
+    console.log(card);
   }
 
   generateMarkup() {
@@ -13,17 +19,17 @@ class CardsView extends View {
 
   generateCardMarkup(d) {
     return ` 
-      <div div class="card" data-id=${d.id}>
+      <div class="card ${d.highlighted ? 'highlighted' : ''}" data-id=${d.id}>
         <div class="card--image" style="background-image: url(${d.image})">
         </div>
         <div class="card--body">
           <h2 class="card--body__title">${d.address}</h2>
           <div class="card--details">
-            <div class="card--details__price">${d.price}</div>
+            <div class="card--details__price">£${d.price}</div>
             <div class="card--details__icons">
               <div>
                 <span class="card--icon">
-                  <i class="fas fa-bed"></i><span>1</span>
+                  <i class="fas fa-bed"></i><span>${d.bedrooms}</span>
                 </span>
                 <span class="card--icon">
                   <i class="fas fa-door-open"></i><span>2</span>

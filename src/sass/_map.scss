@@ -13,8 +13,12 @@
 
   #mapid {
     width: 34vw;
-    height: calc(100vh - 60px * 2);
+    height: calc(100vh - 60px * 2 - 0.75rem);
     overflow: hidden;
+
+    @media screen and (min-width: 1251px) {
+      width: calc((1250px / 3) - 0.5rem);
+    }
   }
 }
 
@@ -28,8 +32,20 @@
 .custom-popup {
   cursor: pointer;
 
+  .leaflet-popup-tip {
+    background: $color-primary-100;
+  }
+
   &:hover {
     z-index: 1000;
+
+    .leaflet-popup-content-wrapper {
+      background: $color-primary-300;
+    }
+
+    .leaflet-popup-tip {
+      background: $color-primary-300;
+    }
   }
 
   .leaflet-popup-content-wrapper {
@@ -39,15 +55,16 @@
       text-align: center;
       color: #fff;
       font-size: 0.75rem;
-      margin: 8px;
+      margin: 0.5rem;
+
+      .popup__content {
+        padding: 0.5rem;
+      }
     }
   }
 }
 
 .leaflet-popup {
   .leaflet-popup-tip-container {
-    .leaflet-popup-tip {
-      background: $color-primary-100;
-    }
   }
 }

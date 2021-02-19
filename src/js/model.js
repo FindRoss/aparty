@@ -1,6 +1,7 @@
 import { async } from 'regenerator-runtime';
 import { API_KEY, API_URL } from './config';
 import { v4 as uuidv4 } from 'uuid';
+import { numberWithCommas } from './helpers.js';
 
 export const state = {
   listings: [],
@@ -10,6 +11,20 @@ export const state = {
     page: 1,
   },
   bookmarks: []
+}
+
+
+export const highlightApartmentListing = id => {
+  let cardToHighlight = [...state.listings].map(listing => {
+    if (listing.id === id) {
+      listing.highlighted = true;
+    } else {
+      listing.highlighted = false;
+    }
+    return listing;
+  });
+
+  state.listings = [...cardToHighlight];
 }
 
 export const getApartListings = async function (query = 'Dunfermline') {
@@ -32,7 +47,7 @@ export const getApartListings = async function (query = 'Dunfermline') {
     xmlDocListingsArr.map((listing, index) => state.listings.push(generateListingObj(listing, index)));
 
   } catch (error) {
-    console.log(`In the catch block of the model. `, error);
+    throw Error;
   }
 }
 
@@ -44,7 +59,8 @@ const generateListingObj = function (listing) {
     longitude: +listing.getElementsByTagName('longitude')[0].innerHTML,
     image: listing.getElementsByTagName('image_645_430_url')[0].innerHTML,
     bedrooms: +listing.getElementsByTagName('num_bedrooms')[0].innerHTML,
-    price: +listing.getElementsByTagName('price')[0].innerHTML,
-    id: uuidv4()
+    price: numberWithCommas(+listing.getElementsByTagName('price')[0].innerHTML),
+    id: uuidv4(),
+    highlighted: false
   }
 }

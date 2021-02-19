@@ -1,3 +1,5 @@
+import cardsView from './cardsView';
+
 class mapView {
   constructor() {
     this.mapLocation = [56.075308, -3.441906];
@@ -28,23 +30,23 @@ class mapView {
   }
 
   generateMapPopup(d) {
-    console.log(d);
     let popupLocation = new L.LatLng(`${d.latitude}`, `${d.longitude}`);
 
-    let popupContent = L.DomUtil.create('span', 'popup__span');
+    let popupContent = L.DomUtil.create('span', 'popup__info');
 
-    popupContent.innerHTML = d.price;
-    // not perfect because I have to bubble around to get this value. 
+    popupContent.innerHTML = `£${d.price}`;
     popupContent.dataset.id = d.id;
 
-    let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' })
+    let popup = new L.Popup({ closeButton: false, closeOnClick: false, className: 'custom-popup' });
 
     popup.setLatLng(popupLocation);
     popup.setContent(popupContent);
 
-    L.DomEvent.addListener(popupContent, 'click', () => {
-
-    });
+    // this works but i went another way.
+    // L.DomEvent.addListener(popupContent, 'click', (e) => {
+    //   let id = e.target.dataset.id;
+    //   console.log(id);
+    // });
 
     return popup;
   }
