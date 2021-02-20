@@ -40,6 +40,8 @@ export const getApartListings = async function (query = 'Dunfermline') {
     // This doesnt deal with a messed up fetch request. ie if the API is broken. 
     if (!fetchApart.ok) throw new Error(xmlDoc.getElementsByTagName('error_string')[0].textContent);
 
+    console.log(process.env.API_URL);
+
     // If xmlDoc contains a disambiguity field, then I need to show those options to the user. 
     if (xmlDoc.getElementsByTagName('disambiguation').length !== 0) {
       // deal with the disambiguous search results here. 
