@@ -29,7 +29,7 @@ export const highlightApartmentListing = id => {
 
 export const getApartListings = async function (query = 'Dunfermline') {
   try {
-    const fetchApart = await fetch(`${process.env.API_URL}?area=${query}${process.env.API_KEY}`);
+    const fetchApart = await fetch(`${process.env.API_URL}?area=${query}&api_key=${process.env.API_KEY}`);
 
     const txt = await fetchApart.text();
 
@@ -37,6 +37,7 @@ export const getApartListings = async function (query = 'Dunfermline') {
     const xmlDoc = parser.parseFromString(txt, "application/xml");
 
     // Error if there is just nothing found for the search. Wrong search field. 
+    // This doesnt deal with a messed up fetch request. ie if the API is broken. 
     if (!fetchApart.ok) throw new Error(xmlDoc.getElementsByTagName('error_string')[0].textContent);
 
     // If xmlDoc contains a disambiguity field, then I need to show those options to the user. 
