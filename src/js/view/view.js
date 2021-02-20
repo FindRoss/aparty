@@ -36,12 +36,14 @@ export default class View {
     this.parentElement.innerHTML = '';
   }
 
-  renderError(query) {
+  renderError(message) {
+    this.errorMessage = message;
+
     const markup = `
       <div class="message intro">
         <i class="fas fa-exclamation-triangle"></i>
         <div class="message__content">
-          ${this.errorMessage} for ${query}
+          ${this.errorMessage}
         </div>
       </div>
     `;

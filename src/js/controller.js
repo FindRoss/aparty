@@ -11,11 +11,13 @@ const controlApartmentListing = async function (query) {
 
   try {
     await model.getApartListings(query);
-
   } catch (error) {
-    return cardsView.renderError(query);
+    // how to get rid of the word ERROR on the errors.
+    cardsView.renderError(`${error} ${query}`);
+    return;
   }
 
+  console.log(model.state.listings)
   cardsView.render(model.state.listings);
   mapView.render(model.state.listings);
   popupsView.addClickHandler(handlePopupClick);

@@ -37,16 +37,34 @@
   }
 }
 
-.placecard {
-  cursor: pointer;
-  padding: 2rem;
-  background: $color-secondary-300;
-  border: 2px solid $color-secondary-300;
-  box-shadow: $box-shadow-sm;
-  border-radius: $border-radius;
+.placecards {
+  grid-column: 1 / 3;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
 
-  &:hover {
+  .placecard {
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+
+    text-transform: uppercase;
     background: $color-secondary-200;
+    box-shadow: $box-shadow-sm;
+    border-radius: $border-radius;
+
+    &:hover {
+      background: $color-secondary-300;
+    }
+
+    &__image {
+      width: 100%;
+      height: auto;
+    }
+
+    &__content {
+      padding: 1.5rem 0.5rem;
+    }
   }
 }
 

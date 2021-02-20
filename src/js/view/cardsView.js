@@ -5,7 +5,6 @@ class CardsView extends View {
   constructor() {
     super()
     this.parentElement = document.querySelector('.cards');
-    this.errorMessage = 'No apartments found';
   }
 
   highlightCard(id) {

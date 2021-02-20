@@ -61,11 +61,7 @@
       <div class="container">
         <div class="filters">
           <form class="search">
-            <input
-              type="text"
-              class="search__field"
-              placeholder="Dunfermline, Rosyth, ect..."
-            />
+            <input type="text" class="search__field" placeholder="Search" />
             <button>Search</button>
           </form>
         </div>
@@ -84,16 +80,45 @@
                 </div>
               </div>
               <!-- .intro -->
-              <div class="placecard" data-location="rosyth">
-                <span>Rosyth</span>
+              <div class="placecards">
+                <div class="placecard" data-location="rosyth">
+                  <img
+                    class="placecard__image"
+                    width="640"
+                    height="900"
+                    src="./src/img/rosyth.jpg"
+                  />
+                  <div class="placecard__content">Rosyth</div>
+                </div>
+                <div class="placecard" data-location="dunfermline">
+                  <img
+                    class="placecard__image"
+                    width="640"
+                    height="900"
+                    src="./src/img/dunfermline.jpg"
+                  />
+                  <div class="placecard__content">Dunfermline</div>
+                </div>
+                <div class="placecard" data-location="edinburgh">
+                  <img
+                    class="placecard__image"
+                    width="640"
+                    height="900"
+                    src="./src/img/edinburgh.jpg"
+                  />
+                  <div class="placecard__content">Edinburgh</div>
+                </div>
+                <div class="placecard" data-location="comrie">
+                  <img
+                    class="placecard__image"
+                    width="640"
+                    height="900"
+                    src="./src/img/comrie.jpg"
+                  />
+                  <div class="placecard__content">Comrie</div>
+                </div>
               </div>
-              <div class="placecard" data-location="dunfermline">
-                <span>Dunfermline</span>
-              </div>
-              <div class="placecard" data-location="edinburgh">
-                <span>Edinburgh</span>
-              </div>
-              <!-- placecard -->
+              <!-- placecards -->
             </div>
             <!-- card--layout -->
           </section>

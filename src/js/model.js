@@ -36,18 +36,26 @@ export const getApartListings = async function (query = 'Dunfermline') {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(txt, "application/xml");
 
-    if (!fetchApart.ok) throw new Error(`${xmlDoc.getElementsByTagName('error_string')[0].textContent}`);
+    // Error if there is just nothing found for the search. Wrong search field. 
+    if (!fetchApart.ok) throw new Error(xmlDoc.getElementsByTagName('error_string')[0].textContent);
+
+    // If xmlDoc contains a disambiguity field, then I need to show those options to the user. 
+    if (xmlDoc.getElementsByTagName('disambiguation').length !== 0) {
+      // deal with the disambiguous search results here. 
+      // throw new error
+      throw new Error('Can you be more specific.');
+    }
+
 
     const xmlDocListings = xmlDoc.getElementsByTagName('listing');
     const xmlDocListingsArr = Array.from(xmlDocListings);
 
-    // Clean listings from state.
     state.listings = [];
-
     xmlDocListingsArr.map((listing, index) => state.listings.push(generateListingObj(listing, index)));
 
   } catch (error) {
-    throw Error;
+    console.log('error in model', error)
+    throw Error(error);
   }
 }
 
