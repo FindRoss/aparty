@@ -3,6 +3,8 @@ import popupsView from './view/popupsView';
 import searchView from './view/searchView';
 import cardsView from './view/cardsView';
 import placeCardView from './view/placeCardView';
+import logoView from './view/logoView';
+
 import * as model from './model';
 
 
@@ -58,5 +60,6 @@ const init = function () {
   searchView.addHandlerSearch(handleSearch);
   placeCardView.addClickHandler(handlePlacecardClick);
   mapView.loadMap();
+  logoView.setHomepagePage();
 }
 init();
