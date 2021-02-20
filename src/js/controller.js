@@ -14,12 +14,17 @@ const controlApartmentListing = async function (query) {
   try {
     await model.getApartListings(query);
   } catch (error) {
-    // how to get rid of the word ERROR on the errors.
-    cardsView.renderError(`${error} ${query}`);
+    if (error.message === 'disambiguation error') {
+      // handle results like Comrie
+    }
+
+    // handle API fucked up..
+
+    // handle no results found for this error.
+    cardsView.renderError(error.message);
     return;
   }
 
-  console.log(model.state.listings)
   cardsView.render(model.state.listings);
   mapView.render(model.state.listings);
   popupsView.addClickHandler(handlePopupClick);

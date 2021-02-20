@@ -129,34 +129,33 @@
     flex-direction: column;
     flex: 1;
 
+    &__type {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+
+      margin-bottom: 0.75rem;
+      align-self: flex-start;
+      padding: 0.35rem 0.25rem;
+      background: $color-secondary-300;
+    }
+
     &__title {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 1rem;
     }
 
     .card--details {
       margin-top: auto;
+      display: flex;
+      justify-content: space-between;
 
       &__price {
         margin-bottom: 0.75rem;
       }
 
-      &__icons {
-        display: flex;
-        justify-content: space-between;
-
-        .card--icon {
-          font-size: 0.85rem;
-          .fas {
-            color: $color-primary-300;
-            margin-right: 0.3rem;
-          }
-        }
-
-        .card--bookmark {
-          color: $color-primary-300;
-          font-size: 1.35rem;
-        }
+      &__bookmark {
+        color: $color-primary-300;
+        font-size: 1.35rem;
       }
     }
   }

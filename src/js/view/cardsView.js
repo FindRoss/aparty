@@ -22,24 +22,12 @@ class CardsView extends View {
         <div class="card--image" style="background-image: url(${d.image})">
         </div>
         <div class="card--body">
+          ${d.type !== "" ? `<span class="card--body__type">${d.type}</span>` : ''}
           <h2 class="card--body__title">${d.address}</h2>
           <div class="card--details">
             <div class="card--details__price">£${d.price}</div>
-            <div class="card--details__icons">
-              <div>
-                <span class="card--icon">
-                  <i class="fas fa-bed"></i><span>${d.bedrooms}</span>
-                </span>
-                <span class="card--icon">
-                  <i class="fas fa-door-open"></i><span>2</span>
-                </span>
-                <span class="card--icon">
-                  <i class="fas fa-ruler-combined"></i><span>70m</span>
-                </span>
-              </div>
-              <div class="card--bookmark">
-                <i class="far fa-bookmark"></i>
-              </div>
+            <div class="card--details__bookmark">
+              <i class="far fa-bookmark"></i>
             </div>
           </div>
         </div>
