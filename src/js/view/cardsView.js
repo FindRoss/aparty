@@ -22,7 +22,7 @@ class CardsView extends View {
         <div class="card--image" style="background-image: url(${d.image})">
         </div>
         <div class="card--body">
-          ${d.type !== "" ? `<span class="card--body__type">${d.type}</span>` : ''}
+          <span class="card--body__type">${d.type === '' ? 'property' : d.type}</span>
           <h2 class="card--body__title">${d.address}</h2>
           <div class="card--details">
             <div class="card--details__price">£${d.price}</div>

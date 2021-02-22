@@ -5,6 +5,7 @@ import { numberWithCommas } from './helpers.js';
 
 export const state = {
   listings: [],
+  disambiguation: [],
   search: {
     query: '',
     results: [],
@@ -30,13 +31,10 @@ export const highlightApartmentListing = id => {
 export const getApartListings = async function (query = 'Dunfermline') {
   try {
     const fetchApart = await fetch(`${process.env.API_URL}?area=${query}&api_key=${process.env.API_KEY}`);
-
     const txt = await fetchApart.text();
 
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(txt, "application/xml");
-
-    // xmlDoc.getElementsByTagName('error_string')[0].textContent
 
     if (!fetchApart.ok) {
       // For no-found results issues
@@ -47,19 +45,22 @@ export const getApartListings = async function (query = 'Dunfermline') {
       // status: 403
       // statusText: Forbidden
 
-      let error = 'something went wrong';
+      let message = 'something went wrong';
 
-      if (fetchApart.status === 400) error = `No results found for ${query}`;
-      if (fetchApart.status === 403) error = 'There was an error with the request';
+      // xmlDoc.getElementsByTagName('error_string')[0].textContent
+      if (fetchApart.status === 400) message = `No results found for ${query}`;
+      if (fetchApart.status === 403) message = 'There was an error with the request';
 
-      throw new Error(error);
+      throw new Error(message);
     }
 
     // If xmlDoc contains a disambiguity field, then I need to show those options to the user. 
     if (xmlDoc.getElementsByTagName('disambiguation').length !== 0) {
 
-      // throw new error
-      throw new Error('disambiguation error');
+      let disambiguationArray = generateDisambiguationObj(xmlDoc.getElementsByTagName('disambiguation'));
+      state.disambiguation = [];
+      state.disambiguation = disambiguationArray;
+      throw new Error('disambiguation');
     }
 
     const xmlDocListings = xmlDoc.getElementsByTagName('listing');
@@ -72,6 +73,7 @@ export const getApartListings = async function (query = 'Dunfermline') {
 
       const listingObj = generateListingObj(listing);
 
+      // Check for duplicates
       if (index > 0) {
         const dulpicateCheck = state.listings.filter(stateListing => {
           return stateListing.address === listingObj.address;
@@ -79,12 +81,13 @@ export const getApartListings = async function (query = 'Dunfermline') {
         if (dulpicateCheck.length > 0) return;
       }
 
-      state.listings.push(listingObj);
+      // Check price is not 0
+      if (listingObj.price !== '0') {
+        state.listings.push(listingObj);
+      }
     });
 
   } catch (error) {
-    console.log('error in model', error.message)
-    console.error(error)
     throw Error(error.message);
   }
 }
@@ -99,8 +102,14 @@ const generateListingObj = function (listing) {
     image: listing.getElementsByTagName('image_645_430_url')[0].innerHTML,
     type: listing.getElementsByTagName('property_type')[0].innerHTML,
     bedrooms: +listing.getElementsByTagName('num_bedrooms')[0].innerHTML,
-    price: numberWithCommas(+listing.getElementsByTagName('price')[0].innerHTML),
+    price: numberWithCommas(listing.getElementsByTagName('price')[0].innerHTML),
     id: uuidv4(),
     highlighted: false
   }
+}
+
+const generateDisambiguationObj = function (arr) {
+  let realArr = Array.from(arr);
+  let arrWithObjects = realArr.map(r => r.textContent);
+  return arrWithObjects;
 }

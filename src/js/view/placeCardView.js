@@ -9,6 +9,9 @@ class PlaceCardView {
   }
 
   addClickHandler(handler) {
+    // I have to do this again because I am calling the same Class again???
+    this.cards = document.querySelectorAll('.placecard');
+
     this.cards.forEach((card, index) => {
       card.addEventListener('click', () => handler(index))
     });

@@ -3,6 +3,7 @@ import popupsView from './view/popupsView';
 import searchView from './view/searchView';
 import cardsView from './view/cardsView';
 import placeCardView from './view/placeCardView';
+import disasmbiguationView from './view/disambiguationView';
 import logoView from './view/logoView';
 
 import * as model from './model';
@@ -14,15 +15,13 @@ const controlApartmentListing = async function (query) {
   try {
     await model.getApartListings(query);
   } catch (error) {
-    if (error.message === 'disambiguation error') {
-      // handle results like Comrie
+
+    if (error.message === 'disambiguation') {
+      disasmbiguationView.render(model.state.disambiguation);
+      return placeCardView.addClickHandler(handlePlacecardClick);
     }
 
-    // handle API fucked up..
-
-    // handle no results found for this error.
     cardsView.renderError(error.message);
-    return;
   }
 
   cardsView.render(model.state.listings);
@@ -37,29 +36,17 @@ const handleSearch = function () {
   return controlApartmentListing(query);
 }
 
-
 const handlePlacecardClick = function (i) {
   let place = placeCardView.getLocation(i);
-
   searchView.clearInput();
-
   return controlApartmentListing(place);
 }
 
-
 const handlePopupClick = function (id) {
-  // Perform this in the model and update the state. 
-  // DO I EVEN NEED TO DO THIS? I dont think so.
+  console.log('Popup clicked');
   model.highlightApartmentListing(id);
   cardsView.update(model.state.listings);
-
-  // console.log(model.state.listings)
-  // cardsView.highlightCard(id);
-  // now I have the card, I can update the UI to show this card.
-  // Update method can be found in Forkify View.js file. 
-  // and HOW TO move to the correct card?
 }
-
 
 const init = function () {
   searchView.addHandlerSearch(handleSearch);

@@ -43,6 +43,10 @@
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
 
+  @media screen and (max-width: $bp-small) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .placecard {
     cursor: pointer;
     overflow: hidden;
@@ -132,7 +136,6 @@
     &__type {
       font-size: 0.7rem;
       text-transform: uppercase;
-
       margin-bottom: 0.75rem;
       align-self: flex-start;
       padding: 0.35rem 0.25rem;
