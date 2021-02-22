@@ -32,6 +32,15 @@ export default class View {
     })
   }
 
+  findChildElementWithId(id) {
+    if (!id) return;
+    let children = this.parentElement.children;
+    let childArray = Array.from(children);
+    let child = childArray.filter(c => id === c.dataset.id);
+    if (child.length === 0) return;
+    return child[0];
+  }
+
   clear() {
     this.parentElement.innerHTML = '';
   }

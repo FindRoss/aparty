@@ -15,19 +15,6 @@ export const state = {
 }
 
 
-export const highlightApartmentListing = id => {
-  let cardToHighlight = [...state.listings].map(listing => {
-    if (listing.id === id) {
-      listing.highlighted = true;
-    } else {
-      listing.highlighted = false;
-    }
-    return listing;
-  });
-
-  state.listings = [...cardToHighlight];
-}
-
 export const getApartListings = async function (query = 'Dunfermline') {
   try {
     const fetchApart = await fetch(`${process.env.API_URL}?area=${query}&api_key=${process.env.API_KEY}`);

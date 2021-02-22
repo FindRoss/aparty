@@ -43,9 +43,19 @@ const handlePlacecardClick = function (i) {
 }
 
 const handlePopupClick = function (id) {
-  console.log('Popup clicked');
-  model.highlightApartmentListing(id);
-  cardsView.update(model.state.listings);
+  // Get the card with the id from the popup.
+  let card = cardsView.findChildElementWithId(id);
+
+  // Scroll the card into view.
+  card.scrollIntoView({ behavior: "smooth", block: "center" });
+
+  // Add style to card.
+  card.classList.add('highlighted');
+
+  // Remove style from card after short delay.
+  setTimeout(() => {
+    card.classList.remove('highlighted');
+  }, 1500);
 }
 
 const init = function () {
