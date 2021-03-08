@@ -7,10 +7,11 @@ class CardsView extends View {
     this.parentElement = document.querySelector('.cards');
   }
 
-  highlightCard(id) {
-    let [card] = this.data.filter(d => d.id === id);
-    console.log(card);
-  }
+  // highlightCard(id) {
+  //   let [card] = this.data.filter(d => d.id === id);
+  // }
+
+
 
   generateMarkup() {
     return this.data.map(this.generateCardMarkup).join('');
@@ -36,4 +37,4 @@ class CardsView extends View {
   }
 }
 
-export default new CardsView(); 
+export default new CardsView();
