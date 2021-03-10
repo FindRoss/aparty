@@ -1,0 +1,62 @@
+@keyframes spinning {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bookmarks {
+  position: fixed;
+  top: 60px;
+
+  // maybe I control it with the vw like this?
+  left: 100vw;
+
+  background: $color-secondary-300;
+  border-top: 5px dashed $color-primary-300;
+  border-bottom: 5px dashed $color-primary-300;
+  // 3 because the filer--section is z-index 2
+  z-index: 3;
+
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  // so we can see when there is no content;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  & > * + * {
+    margin-top: 2rem;
+  }
+
+  &--header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    button {
+      border: none;
+      background: transparent;
+      color: $color-primary-300;
+      cursor: pointer;
+
+      &:hover {
+        animation: spinning 1s ease-in-out;
+      }
+
+      i {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &--body {
+    .no-bookmarks {
+      font-size: 20px;
+    }
+  }
+}

@@ -151,15 +151,25 @@
     .card--details {
       margin-top: auto;
       display: flex;
+      align-items: center;
       justify-content: space-between;
 
       &__price {
-        margin-bottom: 0.75rem;
+        font-size: 0.9rem;
+        font-weight: bold;
       }
 
       &__bookmark {
-        color: $color-primary-300;
-        font-size: 1.35rem;
+        button {
+          border: none;
+          background: inherit;
+
+          .fa-bookmark {
+            cursor: pointer;
+            color: $color-primary-300;
+            font-size: 1.75rem;
+          }
+        }
       }
     }
   }

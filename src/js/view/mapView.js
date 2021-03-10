@@ -1,5 +1,3 @@
-import cardsView from './cardsView';
-
 class mapView {
   constructor() {
     this.mapLocation = [56.075308, -3.441906];

@@ -35,8 +35,14 @@ header {
   }
 
   .nav--list-item {
-    display: flex;
-    align-items: center;
+    button {
+      background-color: inherit;
+      border: none;
+      cursor: pointer;
+
+      display: flex;
+      align-items: center;
+    }
   }
 
   i.fas {

@@ -27,7 +27,7 @@ export default class View {
       // checking for a change in className
       if (newEl.className !== curEl.className) {
         curEl.className = newEl.className;
-        curEl.scrollIntoView({ behavior: "smooth", block: "center" });
+        // curEl.scrollIntoView({ behavior: "smooth", block: "center" });
       }
     })
   }

@@ -14,7 +14,6 @@ export const state = {
   bookmarks: []
 }
 
-
 export const getApartListings = async function (query = 'Dunfermline') {
   try {
     const fetchApart = await fetch(`${process.env.API_URL}?area=${query}&api_key=${process.env.API_KEY}`);
@@ -24,17 +23,11 @@ export const getApartListings = async function (query = 'Dunfermline') {
     const xmlDoc = parser.parseFromString(txt, "application/xml");
 
     if (!fetchApart.ok) {
-      // For no-found results issues
-      // status: 400
-      // statusText: "Bad request"
-
-      // For API issue
-      // status: 403
-      // statusText: Forbidden
+      // For no-found results issues // status: 400 // statusText: "Bad request"
+      // For API issue // status: 403 // statusText: Forbidden
 
       let message = 'something went wrong';
 
-      // xmlDoc.getElementsByTagName('error_string')[0].textContent
       if (fetchApart.status === 400) message = `No results found for ${query}`;
       if (fetchApart.status === 403) message = 'There was an error with the request';
 
@@ -60,6 +53,16 @@ export const getApartListings = async function (query = 'Dunfermline') {
 
       const listingObj = generateListingObj(listing);
 
+      // Check if the listing is currently bookmarked
+      // I cannot check for the ID because it is generate every call. But I can check with the name instead?
+
+      // Why is this not proving true? 
+      if (state.bookmarks.some(bookmark => bookmark.address == listingObj.address)) {
+        listingObj.bookmark = true;
+      } else {
+        listingObj.bookmark = false;
+      }
+
       // Check for duplicates
       if (index > 0) {
         const dulpicateCheck = state.listings.filter(stateListing => {
@@ -68,7 +71,7 @@ export const getApartListings = async function (query = 'Dunfermline') {
         if (dulpicateCheck.length > 0) return;
       }
 
-      // Check price is not 0
+      // Final check price is not 0
       if (listingObj.price !== '0') {
         state.listings.push(listingObj);
       }
@@ -91,7 +94,6 @@ const generateListingObj = function (listing) {
     bedrooms: +listing.getElementsByTagName('num_bedrooms')[0].innerHTML,
     price: numberWithCommas(listing.getElementsByTagName('price')[0].innerHTML),
     id: uuidv4(),
-    highlighted: false
   }
 }
 
@@ -100,3 +102,41 @@ const generateDisambiguationObj = function (arr) {
   let arrWithObjects = realArr.map(r => r.textContent);
   return arrWithObjects;
 }
+
+export const setBookmarks = function (id) {
+  // with the id, filter the listing from state.
+  const filteredListing = state.listings.filter(listing => listing.id === id)[0];
+
+  // Toggle whether the listing is bookmarked. 
+  filteredListing.bookmark = !filteredListing.bookmark
+
+  // update the model.state.listings with this updated listing. 
+  state.listings.map(listing => {
+    if (listing.address === filteredListing.address)
+      listing.bookmark = filteredListing.bookmark;
+  })
+
+  // If the bookmark === false, remove it from the bookmarks.
+  if (!filteredListing.bookmark) {
+    // loop through the bookmarks and filter this one.
+    const newBookmarksArr = state.bookmarks.filter(bookmark => bookmark.address !== filteredListing.address);
+    state.bookmarks = newBookmarksArr;
+  }
+
+  // If the bookmark === true store the listing in the state bookmarks array.
+  if (filteredListing.bookmark) {
+    state.bookmarks.push(filteredListing)
+  }
+
+
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
+}
+
+
+export const getLocalStorage = function () {
+  // Bookmarks stored in localStorage
+  const bookmarksFromLocalStorage = localStorage.getItem('bookmarks');
+  state.bookmarks = JSON.parse(bookmarksFromLocalStorage);
+}
+
+
