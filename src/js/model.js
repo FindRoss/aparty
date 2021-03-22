@@ -104,13 +104,16 @@ const generateDisambiguationObj = function (arr) {
 }
 
 export const setBookmarks = function (id) {
-  // with the id, filter the listing from state.
+  // Check if something is happening.
+  console.log('Looking for the ID in the model', id);
+
+  // With the id, filter the listing from state.
   const filteredListing = state.listings.filter(listing => listing.id === id)[0];
 
   // Toggle whether the listing is bookmarked. 
   filteredListing.bookmark = !filteredListing.bookmark
 
-  // update the model.state.listings with this updated listing. 
+  // Update the model.state.listings with this updated listing. 
   state.listings.map(listing => {
     if (listing.address === filteredListing.address)
       listing.bookmark = filteredListing.bookmark;
@@ -128,9 +131,44 @@ export const setBookmarks = function (id) {
     state.bookmarks.push(filteredListing)
   }
 
-
+  // Store bookmarks in localStorage
   localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks))
 }
+
+export const removeFromBookmarks = function (id) {
+  // lets start console loggin the bookmarks so we can see where we are. 
+  console.log(state.bookmarks);
+
+  // Filtered the bookmark from the bookmarks array. 
+  const newBookmarksArr = state.bookmarks.filter(bookmark => bookmark.id !== id);
+
+  // Update the bookmarks in the state. 
+  state.bookmarks = newBookmarksArr;
+
+  // Store bookmarks in localStorage
+  localStorage.setItem('bookmarks', JSON.stringify(state.bookmarks));
+
+  // Deal with the state listings.   
+  // True if the state listings contain the current bookmark we are dealing with. 
+  const testBookmark = state.listings.some(listing => listing.id === id);
+
+
+  if (testBookmark === true) {
+    // copy the bookmarks array. 
+    const listingsCopy = [...state.listings];
+
+    // go through it and update the listing with the id. 
+    listingsCopy.map(listing => {
+      if (listing.id === id) {
+        listing.bookmark = !listing.bookmark;
+      }
+    });
+
+    // add it back onto the bookmarks array 
+    state.listings = listingsCopy;
+  }
+}
+
 
 
 export const getLocalStorage = function () {

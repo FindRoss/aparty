@@ -56,8 +56,10 @@
     background: $color-secondary-200;
     box-shadow: $box-shadow-sm;
     border-radius: $border-radius;
+    font-size: 1rem;
 
-    &:hover {
+    &:hover,
+    &:focus {
       background: $color-secondary-300;
     }
 
@@ -160,15 +162,10 @@
       }
 
       &__bookmark {
-        button {
-          border: none;
-          background: inherit;
-
-          .fa-bookmark {
-            cursor: pointer;
-            color: $color-primary-300;
-            font-size: 1.75rem;
-          }
+        .fa-bookmark {
+          cursor: pointer;
+          color: $color-primary-300;
+          font-size: 1.75rem;
         }
       }
     }

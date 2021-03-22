@@ -7,7 +7,9 @@ class CardView extends View {
     this.parentElement = document.querySelector('.cards');
   }
 
+  // Handle clicks on cards bookmark icon
   addClickHandler(handler) {
+
     this.parentElement.addEventListener('click', function (e) {
       const bookmark = e.target.closest('.card--details__bookmark');
       if (!bookmark) return;

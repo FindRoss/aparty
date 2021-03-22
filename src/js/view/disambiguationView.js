@@ -11,9 +11,9 @@ class DisambiguationView extends View {
     let foo = this.data.map(d => {
 
       return `
-        <div class="placecard" data-location="${d}">
+        <Button class="placecard" data-location="${d}">
           <div class="placecard__content">${d}</div>
-        </div>
+        </Button>
       `;
     }).join('');
 

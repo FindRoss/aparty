@@ -2,6 +2,7 @@ import mapView from './view/mapView';
 import popupsView from './view/popupsView';
 import searchView from './view/searchView';
 import cardView from './view/cardView';
+import bookmarksView from './view/bookmarksView';
 import placeCardView from './view/placeCardView';
 import disasmbiguationView from './view/disambiguationView';
 import logoView from './view/logoView';
@@ -24,10 +25,19 @@ const controlApartmentListing = async function (query) {
     cardView.renderError(error.message);
   }
 
+  // Render the cards.
   cardView.render(model.state.listings);
+
+  // Add the click handler to the cards.
   cardView.addClickHandler(controlBookmarks);
+
+  // Render the icons on the map. 
   mapView.render(model.state.listings);
+
+  // Add the click handler to the popups.
   popupsView.addClickHandler(handlePopupClick);
+
+  console.log(model.state.bookmarks);
 }
 
 const handleSearch = function () {
@@ -63,24 +73,58 @@ const controlBookmarks = function (id) {
   // send the id to the model to update the state bookmarks
   model.setBookmarks(id);
 
-  // Render works perfectly. Update works but its a bit weird. 
+  // Update the cards on bookmark change.  
   cardView.update(model.state.listings);
 
-  // todo.. 
-  // need to design the bookmarks. 
-  // need to show the bookmarks.
-  // need to remove the bookmarks. 
-  // !! the cards on the front end need to know when they are bookmarked. Update cardView. Render bookmarkView.
+  // Render bookmarks
+  bookmarksView.render(model.state.bookmarks);
 
+  // add the click handler to  the rendered bookmarks.
+  bookmarksView.addCardClickHandler(deleteBookmark);
 }
+
+const deleteBookmark = function (id) {
+  // And there you have it!
+  console.log('And there you have it! controller', id);
+
+  // Remove the bookmark from the state
+  model.removeFromBookmarks(id);
+
+  // Render bookmarks
+  bookmarksView.render(model.state.bookmarks);
+
+  // add the click handler to  the rendered bookmarks.
+  bookmarksView.addCardClickHandler(deleteBookmark);
+
+  // Update the cards on bookmark change.  
+  cardView.update(model.state.listings);
+}
+
+const setupBookmarks = function () {
+  // Set the bookmarks from localStorage
+  model.getLocalStorage();
+
+  // Render the bookmarks
+  bookmarksView.render(model.state.bookmarks);
+
+  // Add the click handler on the bookmarks
+  bookmarksView.addCardClickHandler(deleteBookmark)
+}
+
 
 const init = function () {
   searchView.addHandlerSearch(handleSearch);
+  // Search for places like Dunfermline, Rosyth, ect. 
   placeCardView.addClickHandler(handlePlacecardClick);
+  // Handle the bookmarks slide in and out. 
+  bookmarksView.addMenuClickHandler()
+  // Add the bookmarks to the UI 
+  bookmarksView.render(model.state.bookmarks);
+  // Loading the map on page load.
   mapView.loadMap();
   // This is to dynamically set my link to localhost or hostname. 
   logoView.setHomepagePage();
-  // retreieve localstorate
-  model.getLocalStorage();
+  // initiate the Bookmarks from localStorage.
+  setupBookmarks();
 }
 init();

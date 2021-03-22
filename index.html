@@ -49,7 +49,7 @@
           <nav>
             <ul class="nav--list">
               <li class="nav--list-item">
-                <button>
+                <button class="bookmarks-toggle">
                   <i class="fas fa-bookmark"></i>
                   <span>Bookmarks</span>
                 </button>
@@ -59,18 +59,22 @@
         </div>
       </div>
     </header>
-    <section class="bookmarks container">
-      <div class="bookmarks--header">
-        <h2>Bookmarks</h2>
-        <button>
-          <i class="far fa-times-circle"></i>
-        </button>
-      </div>
-      <div class="bookmarks--body">
-        <div class="no-bookmarks">
-          Unfortunately there are no booksmarks right now! Try adding some!
+    <section class="bookmarks dismissed-bookmarks">
+      <div class="container">
+        <div class="bookmarks--header">
+          <h2>Bookmarks</h2>
+          <button class="bookmarks-toggle-alt">
+            <i class="far fa-times-circle"></i>
+          </button>
         </div>
+        <div class="bookmarks--body">
+          <!-- <div class="no-bookmarks">
+          Unfortunately there are no booksmarks right now. Try adding some!
+          </div> -->
+        </div>
+        <!-- .bookmarks--body -->
       </div>
+      <!-- .container -->
     </section>
     <section class="filters--section">
       <div class="container">
@@ -96,7 +100,7 @@
               </div>
               <!-- .intro -->
               <div class="placecards">
-                <div class="placecard" data-location="rosyth">
+                <button class="placecard" data-location="rosyth">
                   <img
                     class="placecard__image"
                     width="640"
@@ -104,8 +108,8 @@
                     src="./src/img/rosyth.jpg"
                   />
                   <div class="placecard__content">Rosyth</div>
-                </div>
-                <div class="placecard" data-location="dunfermline">
+                </button>
+                <button class="placecard" data-location="dunfermline">
                   <img
                     class="placecard__image"
                     width="640"
@@ -113,8 +117,8 @@
                     src="./src/img/dunfermline.jpg"
                   />
                   <div class="placecard__content">Dunfermline</div>
-                </div>
-                <div class="placecard" data-location="edinburgh">
+                </button>
+                <button class="placecard" data-location="edinburgh">
                   <img
                     class="placecard__image"
                     width="640"
@@ -122,8 +126,8 @@
                     src="./src/img/edinburgh.jpg"
                   />
                   <div class="placecard__content">Edinburgh</div>
-                </div>
-                <div class="placecard" data-location="comrie">
+                </button>
+                <button class="placecard" data-location="comrie">
                   <img
                     class="placecard__image"
                     width="640"
@@ -131,7 +135,7 @@
                     src="./src/img/comrie.jpg"
                   />
                   <div class="placecard__content">Comrie</div>
-                </div>
+                </button>
               </div>
               <!-- placecards -->
             </div>
