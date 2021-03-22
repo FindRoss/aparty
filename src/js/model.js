@@ -57,6 +57,7 @@ export const getApartListings = async function (query = 'Dunfermline') {
       // I cannot check for the ID because it is generate every call. But I can check with the name instead?
 
       // Why is this not proving true? 
+      console.log('trying the some bool return', state.bookmarks.some(bookmark => bookmark.address == listingObj.address));
       if (state.bookmarks.some(bookmark => bookmark.address == listingObj.address)) {
         listingObj.bookmark = true;
       } else {
