@@ -13,6 +13,8 @@ import * as model from './model';
 const controlApartmentListing = async function (query) {
   cardView.renderSpinner();
 
+  console.log('Starting controlApartmentListing', 1);
+
   try {
     await model.getApartListings(query);
   } catch (error) {
@@ -22,6 +24,8 @@ const controlApartmentListing = async function (query) {
       return placeCardView.addClickHandler(handlePlacecardClick);
     }
 
+    console.log('Now in controlApartmentListing error, error: ', error);
+    console.log('Now in controlApartmentListing error, state: ', model.state);
     cardView.renderError(error.message);
   }
 
