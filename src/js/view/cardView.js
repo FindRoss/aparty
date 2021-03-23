@@ -10,13 +10,17 @@ class CardView extends View {
   // Handle clicks on cards bookmark icon
   addClickHandler(handler) {
 
-    this.parentElement.addEventListener('click', function (e) {
-      const bookmark = e.target.closest('.card--details__bookmark');
-      if (!bookmark) return;
-      const card = bookmark.closest('.card')
-      const cardID = card.getAttribute('data-id');
+    const cards = document.querySelectorAll('.card');
 
-      handler(cardID);
+    cards.forEach(card => {
+      card.addEventListener('click', function (e) {
+        const bookmark = e.target.closest('.card--details__bookmark');
+        // Here i need the card ID. 
+        if (!bookmark) return;
+        const cardID = card.getAttribute('data-id');
+
+        handler(cardID);
+      })
     })
   }
 

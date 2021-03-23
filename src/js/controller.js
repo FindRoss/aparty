@@ -35,8 +35,6 @@ const controlApartmentListing = async function (query) {
 
   // Add the click handler to the popups.
   popupsView.addClickHandler(handlePopupClick);
-
-  console.log(model.state.bookmarks);
 }
 
 const handleSearch = function () {
@@ -83,8 +81,6 @@ const controlBookmarks = function (id) {
 }
 
 const deleteBookmark = function (id) {
-  // And there you have it!
-  console.log('And there you have it! controller', id);
 
   // Remove the bookmark from the state
   model.removeFromBookmarks(id);

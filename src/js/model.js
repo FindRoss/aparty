@@ -54,13 +54,8 @@ export const getApartListings = async function (query = 'Dunfermline') {
     xmlDocListingsArr.map((listing, index) => {
 
       const listingObj = generateListingObj(listing);
-      console.log(state);
 
-
-
-      // Why is this not proving true? 
-
-      // Check if the listing is currently bookmarked. cannot check for the ID because it is generate every call
+      // Check if the listing is currently bookmarked. Cannot check for the ID because it is generate every call
       if (state.bookmarks.some(bookmark => bookmark.address == listingObj.address)) {
         listingObj.bookmark = true;
       } else {
@@ -108,11 +103,15 @@ const generateDisambiguationObj = function (arr) {
 }
 
 export const setBookmarks = function (id) {
+
+
   // With the id, filter the listing from state.
   const filteredListing = state.listings.filter(listing => listing.id === id)[0];
 
   // Toggle whether the listing is bookmarked. 
   filteredListing.bookmark = !filteredListing.bookmark
+
+  console.log('am I here?', filteredListing);
 
   // Update the model.state.listings with this updated listing. 
   state.listings.map(listing => {
@@ -167,8 +166,6 @@ export const removeFromBookmarks = function (id) {
     state.listings = listingsCopy;
   }
 }
-
-
 
 export const getLocalStorage = function () {
   // Bookmarks stored in localStorage
