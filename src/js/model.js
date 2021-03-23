@@ -47,17 +47,20 @@ export const getApartListings = async function (query = 'Dunfermline') {
     const xmlDocListingsArr = Array.from(xmlDocListings);
 
     state.listings = [];
+    // I have to define the bookmarks here for some reason?
+    state.bookmarks = [];
 
     // Rather than just pushing the listing onto the state, need to check the same address has not already been added.
     xmlDocListingsArr.map((listing, index) => {
 
       const listingObj = generateListingObj(listing);
+      console.log(state);
 
-      // Check if the listing is currently bookmarked
-      // I cannot check for the ID because it is generate every call. But I can check with the name instead?
+
 
       // Why is this not proving true? 
-      console.log('trying the some bool return', state.bookmarks.some(bookmark => bookmark.address == listingObj.address));
+
+      // Check if the listing is currently bookmarked. cannot check for the ID because it is generate every call
       if (state.bookmarks.some(bookmark => bookmark.address == listingObj.address)) {
         listingObj.bookmark = true;
       } else {
@@ -105,9 +108,6 @@ const generateDisambiguationObj = function (arr) {
 }
 
 export const setBookmarks = function (id) {
-  // Check if something is happening.
-  console.log('Looking for the ID in the model', id);
-
   // With the id, filter the listing from state.
   const filteredListing = state.listings.filter(listing => listing.id === id)[0];
 
@@ -137,8 +137,6 @@ export const setBookmarks = function (id) {
 }
 
 export const removeFromBookmarks = function (id) {
-  // lets start console loggin the bookmarks so we can see where we are. 
-  console.log(state.bookmarks);
 
   // Filtered the bookmark from the bookmarks array. 
   const newBookmarksArr = state.bookmarks.filter(bookmark => bookmark.id !== id);
