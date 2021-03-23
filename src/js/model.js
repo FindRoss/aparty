@@ -16,6 +16,7 @@ export const state = {
 
 export const getApartListings = async function (query = 'Dunfermline') {
   try {
+
     const fetchApart = await fetch(`${process.env.API_URL}?area=${query}&api_key=${process.env.API_KEY}`);
     const txt = await fetchApart.text();
 
@@ -46,9 +47,14 @@ export const getApartListings = async function (query = 'Dunfermline') {
     const xmlDocListings = xmlDoc.getElementsByTagName('listing');
     const xmlDocListingsArr = Array.from(xmlDocListings);
 
+
     state.listings = [];
     // I have to define the bookmarks here for some reason?
-    state.bookmarks = [];
+
+
+    // I cannot do this here! Because it resets the bookmarks every time.
+    // But I think this
+    // state.bookmarks = [];
 
     // Rather than just pushing the listing onto the state, need to check the same address has not already been added.
     xmlDocListingsArr.map((listing, index) => {
@@ -103,8 +109,6 @@ const generateDisambiguationObj = function (arr) {
 }
 
 export const setBookmarks = function (id) {
-
-
   // With the id, filter the listing from state.
   const filteredListing = state.listings.filter(listing => listing.id === id)[0];
 
@@ -168,9 +172,13 @@ export const removeFromBookmarks = function (id) {
 }
 
 export const getLocalStorage = function () {
-  // Bookmarks stored in localStorage
+  // Check there are bookmarks in the local storage. 
   const bookmarksFromLocalStorage = localStorage.getItem('bookmarks');
-  state.bookmarks = JSON.parse(bookmarksFromLocalStorage);
+
+  // set the states bookmarks.
+  if (bookmarksFromLocalStorage !== null) {
+    state.bookmarks = JSON.parse(bookmarksFromLocalStorage);
+  }
 }
 
 

@@ -10,6 +10,9 @@ import logoView from './view/logoView';
 import * as model from './model';
 
 
+console.log('before getApartmentListings', model.state);
+
+
 const controlApartmentListing = async function (query) {
   cardView.renderSpinner();
 
@@ -67,7 +70,7 @@ const handlePopupClick = function (id) {
 }
 
 const controlBookmarks = function (id) {
-  // send the id to the model to update the state bookmarks
+  // Update the bookmarks in the state
   model.setBookmarks(id);
 
   // Update the cards on bookmark change.  
